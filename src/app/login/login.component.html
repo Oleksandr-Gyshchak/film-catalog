@@ -1,0 +1,53 @@
+<mat-card class="login-form">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>Приветствуем Вас</h3>
+      <h5>Для работы с системой необходимо авторизоваться</h5>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="loginForm">
+      <div>
+        <mat-form-field class="example-full-width">
+          <input #userNameRef matInput placeholder="Login" type="text" formControlName="userName">
+          <button mat-button *ngIf="!userNameRef.touched" matSuffix mat-icon-button aria-label="Clear" (click)="loginForm.patchValue({userName: ''})">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-error *ngIf="formErrors.userName">
+          {{ formErrors.userName}}
+        </mat-error>
+      </div>
+      <div>
+        <mat-form-field class="example-full-width">
+          <input matInput #userPassRef placeholder="Password" type="password" formControlName="userPassword">
+          <button mat-button *ngIf="!userPassRef.touched" matSuffix mat-icon-button aria-label="Clear" (click)="loginForm.patchValue({userPassword: ''})">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-error *ngIf="formErrors.userPassword">
+          {{ formErrors.userPassword}}
+        </mat-error>
+      </div>
+      <mat-error *ngIf="errorMessage">
+        {{ errorMessage}}
+      </mat-error>
+    </form>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="checkAutThemoviedb()" color="primary">Submit</button>
+    <button mat-raised-button (click)="makeClear()" color="accent">Clear</button>
+  </mat-card-actions>
+</mat-card>
+
+
+
+<mat-card class="login-pass-form">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>Login</h3> <span>sasha991</span>
+      <h3>Password</h3> <span>qwerty-123456</span>
+    </mat-card-title>
+  </mat-card-header>
+</mat-card>

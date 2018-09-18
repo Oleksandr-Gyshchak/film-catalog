@@ -1,0 +1,51 @@
+<div class="wraper" *appSpinner="!film">
+
+  <div class="top-block">
+    <div class="poster-block">
+      <div class="poster">
+        <img [src]="film['backdrop_path'] | transformImgPath: 1280" alt="">
+      </div>
+      <div class="blue-layout"></div>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <div class="content">
+      <div class="image">
+        <img [src]="film.poster_path | transformImgPath: 300" [alt]=film.title>
+      </div>
+
+      <div class="text-area">
+        <header>
+          <h1>{{film.title}}</h1>
+          <span>Продолжительность : {{film['runtime'] | transformDuration}}</span>
+          <span>Релиз : {{film.release_date }}</span>
+          <span>Рейтинг: {{film['vote_average']}}</span>
+          <div class="button-group">
+
+            <button mat-icon-button [color]="getButtonColour()" (click)="addToFavorite(film)" [matTooltip]="getToolTipLabel()"
+              aria-label="Button that displays a tooltip when focused or hovered over">
+              <i class="material-icons">{{ film.isFavorite ? 'favorite' : 'star' }}</i>
+            </button>
+          </div>
+        </header>
+
+        <section class="movie-discription">
+          <h3>Описание</h3>
+          {{film.overview}}
+        </section>
+        <footer>
+          <h3>Жанры</h3>
+          <div class="credites-job">
+            <mat-grid-list cols="4" rowHeight="4:1" rowHeight="20px">
+              <mat-grid-tile *ngFor="let genre of film['genres']">
+                <b> {{genre.name}} </b>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+        </footer>
+      </div>
+
+    </div>
+  </div>
+</div>

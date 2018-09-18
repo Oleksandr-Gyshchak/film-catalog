@@ -1,0 +1,20 @@
+<div class="main-container" *ngIf="!preload; else showPreload">
+  <div class="flex-item">
+    <button mat-raised-button color="primary" [disabled]="isFirstPage()" (click)="getPreviousItems()">Назад</button>
+  </div>
+
+  <div class="flex-item">
+    Page : {{currentPage}} / {{lastPage}}
+  </div>
+
+  <div class="flex-item">
+    <button mat-raised-button color="primary" [disabled]="isMaxPage()" (click)="showMoreItems()">Следующая</button>
+  </div>
+
+</div>
+
+<ng-template #showPreload>
+  <div class="main-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

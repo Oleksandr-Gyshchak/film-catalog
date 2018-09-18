@@ -1,0 +1,33 @@
+<app-alerts></app-alerts>
+
+<div>
+  <header *ngIf="isLoggedIn">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span>Film Catalog</span>
+        <span class="example-spacer"></span>
+
+        <span class="example-spacer"></span>
+        <a mat-button *ngFor="let link of links" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+          class="nav-link" [routerLink]="link['path']">
+          <mat-icon class="example-icon">{{link['icon']}}</mat-icon>{{link['label']}}
+        </a>
+
+        <button mat-stroked-button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon class="example-icon">account_box</mat-icon>
+          {{ loadUserProfile }}
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openFavoritesList()"> Favorite </button>
+          <button mat-menu-item (click)="logOut()"> Log out </button>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <app-search></app-search>
+
+  </header>
+</div>
+
+
+<router-outlet></router-outlet>

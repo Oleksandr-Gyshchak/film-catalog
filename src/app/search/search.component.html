@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <div class="search-input">
+    <mat-form-field>
+      <mat-icon matPrefix><span>search</span></mat-icon>
+      <input #query matInput type="text" placeholder="Поиск..." [(ngModel)]="value" (keyup.enter)="sendQueryValue(query.value)">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="clearQueryValue()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-error *ngIf="error" class="error-message">
+      {{ error }}
+    </mat-error>
+
+  </div>
+
+</div>

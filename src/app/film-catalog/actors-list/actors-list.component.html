@@ -1,0 +1,10 @@
+<div *appSpinner="preload">
+  <mat-grid-list cols="3" rowHeight="740px">
+    <mat-grid-tile colspan="1" *ngFor="let actor of actorsList">
+      <app-actor-item [actor]="actor"></app-actor-item>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <app-pagination *ngIf="actorsList" [currentPage]="page" [lastPage]="lastPage" (page)="getMoreActors($event)"></app-pagination>
+
+</div>

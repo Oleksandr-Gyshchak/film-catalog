@@ -1,0 +1,18 @@
+<div class="wrapper" *appSpinner="preload">
+
+  <ng-template #alertBlock>
+    <mat-error>
+      {{ error }}
+    </mat-error>
+  </ng-template>
+
+  <div *ngIf="filmsList; else alertBlock">
+    <mat-grid-list cols="4" rowHeight="740px">
+      <mat-grid-tile colspan="1" *ngFor="let film of filmsList">
+        <app-film-item [film]="film" (favorite)="addToFavorite($event)"></app-film-item>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <app-pagination *ngIf="filmsList" [currentPage]="page" [lastPage]="lastPage" (page)="getNextPage($event)"></app-pagination>
+  </div>
+</div>

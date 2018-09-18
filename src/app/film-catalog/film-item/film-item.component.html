@@ -1,0 +1,30 @@
+<mat-card class="film-card" *ngIf="film">
+
+  <mat-card-header>
+    <div mat-card-avatar class="film-header-image"></div>
+    <mat-card-title>{{film.title}}</mat-card-title>
+    <mat-card-subtitle>{{film.release_date}}</mat-card-subtitle>
+  </mat-card-header>
+  <a routerLink="['/movie', film.id]">
+    <img mat-card-image class="film-image" [src]="getImgUrl(film.poster_path)" alt="{{film.title}}">
+  </a>
+  <mat-card-content>
+    <p>
+      {{film.overview | slice:0:160}}...
+    </p>
+  </mat-card-content>
+
+
+  <mat-card-actions>
+
+    <button mat-icon-button [color]="getButtonColour()" (click)="startFilm(film)" [matTooltip]="getToolTipLabel()"
+      aria-label="Button that displays a tooltip when focused or hovered over">
+
+      <i class="material-icons">{{ film.isFavorite ? 'favorite' : 'star' }}</i>
+    </button>
+
+    <button mat-raised-button color="primary" (click)="openFilmById(film)">
+      open
+    </button>
+  </mat-card-actions>
+</mat-card>

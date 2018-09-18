@@ -1,0 +1,17 @@
+.actor-header-image {
+  background-image: url('./assets/1.png');
+  background-size: cover;
+}
+
+.actor-image {
+  height: 550px;
+  width: 100%;
+}
+
+.example {
+  height: 40px;
+}
+
+.actor-card {
+  background-color: #f4f4f4;
+}

@@ -1,0 +1,63 @@
+.wraper {
+  width: 100%;
+  color: white;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.poster-block {
+  height: 614px;
+  overflow: hidden;
+}
+
+.poster img {
+  width: 100%;
+  position: relative;
+}
+
+.blue-layout {
+  position: absolute;
+  top: 124px;
+  right: 0;
+  z-index: 1;
+  background-color: rgba(11, 18, 31, 0.9);
+  height: 614px;
+  width: 100%
+}
+
+.content-block {
+  position: absolute;
+  top: 164px;
+  z-index: 2;
+  width: 100%;
+}
+
+.content {
+  width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  opacity: 1;
+}
+
+.image {
+  width: 300px;
+  max-height: 450px;
+}
+
+.text-area {
+  width: 700px;
+  padding: 0 2%;
+  line-height: 1.4em;
+}
+
+header span {
+  display: block;
+}
+
+.movie-discription {
+  min-height: 173px;
+}
+
+header span {
+  display: block;
+}

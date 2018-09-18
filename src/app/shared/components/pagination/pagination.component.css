@@ -1,0 +1,15 @@
+.main-container {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+button {
+  width: 120px;
+}
+
+.flex-item {
+  padding: 20px;
+  align-self: center;
+}

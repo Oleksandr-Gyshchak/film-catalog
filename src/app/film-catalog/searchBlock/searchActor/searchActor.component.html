@@ -1,0 +1,29 @@
+<div class="button-toggle">
+  <mat-button-toggle-group (click)="searchFilms()" name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup"
+    [value]="'Actors'">
+    <mat-button-toggle id="film-button-toggle" value="Films">Films</mat-button-toggle>
+    <mat-button-toggle value="Actors">Actors</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+
+<div *appSpinner="preload">
+  <ng-template #alertBlock class="errors-block">
+    <mat-error>
+      <h3>
+        По вашему запросу {{query}} ничего не найдено
+      </h3>
+    </mat-error>
+  </ng-template>
+
+  <div *ngIf="isEmptySearchResult(actorsList); else alertBlock">
+    <mat-grid-list cols="3" rowHeight="740px">
+      <mat-grid-tile colspan="1" *ngFor="let actor of actorsList">
+        <app-actor-item [actor]="actor"></app-actor-item>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <app-pagination *ngIf="actorsList" [currentPage]="page" [lastPage]="lastPage" (page)="getMoreActors($event)"></app-pagination>
+  </div>
+
+</div>

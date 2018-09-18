@@ -1,0 +1,7 @@
+::ng-deep snack-bar-container.blue-snackbar {
+  background: #2196F3;
+}
+
+::ng-deep snack-bar-container.red-snackbar {
+  background: #F44336;
+}

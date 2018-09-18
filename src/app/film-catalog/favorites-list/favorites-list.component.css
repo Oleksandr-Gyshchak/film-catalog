@@ -1,0 +1,28 @@
+.menu-card {
+  padding: 0px;
+}
+
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-grid-list {
+  margin: 1rem 3rem 0;
+}
+
+.wrapper {
+  margin: 1rem 3rem 0;
+}
+
+mat-error {
+  color: red;
+  display: flex;
+  justify-content: center;
+}
+
+mat-spinner {
+  position: absolute;
+  top: 35%;
+  left: 45%;
+}
