@@ -10,3 +10,8 @@ mat-toolbar {
   color: white;
   background-color: rgba(16, 19, 26, 0.9)
 }
+
+.active {
+  border: 2px;
+  color: white;
+}

@@ -3,8 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription, throwError } from 'rxjs';
 import { Film } from '../../shared/models/film';
 import { FilmService } from '../../shared/services/services/film.service';
-import { FavoriteServer } from '../../shared/models/favoriteServer';
-import { MessagesService } from '../../shared/services/messages.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-films',
@@ -25,8 +25,7 @@ export class FilmsListComponent implements OnInit {
 
 
   constructor(
-    public filmsService: FilmService,
-    private messagesService: MessagesService
+    public filmsService: FilmService
   ) { }
 
   ngOnInit() {
@@ -39,9 +38,11 @@ export class FilmsListComponent implements OnInit {
         this.saveData(data);
         this.preload = false;
       },
-      err => {
+      (err: HttpErrorResponse) => {
+        this.error = err.error.status_message;
         console.log('error', err);
-      });
+      }
+    );
   }
 
   saveData(serverData: any): void {

@@ -22,13 +22,6 @@ export class FilmApiService {
     return this.http.get(`${this.configApi.searchUrl}/movie?page=${page}${this.configApi.params}&query=${query}`);
   }
 
-  getFilmImgUrl(url: string): string {
-    const imgUrl: string = (url) ? 'https://image.tmdb.org/t/p/w500'
-      + url : 'https://ps.w.org/page-loading-effects/assets/screenshot-2.png?rev=1429753';
-    return imgUrl;
-  }
-
-
   get favoriteApiUrl(): string {
     const sessionID = localStorage.getItem('sessionID');
     const userID = localStorage.getItem('userInfo');

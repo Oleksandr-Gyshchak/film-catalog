@@ -12,15 +12,10 @@ import { MessagesService } from '../messages.service';
 })
 
 export class FilmService {
-  private favoriteList: any;
-
   constructor(
     private filmApiService: FilmApiService,
     private messagesService: MessagesService
   ) {
-    this.filmApiService.getFavoriteList().subscribe((favoritesList: any) => {
-      this.favoriteList = favoritesList;
-    });
   }
 
   getFilmList(page: number): Observable<Film> {
@@ -62,15 +57,10 @@ export class FilmService {
 
 
   private buildFavoriteInfo(data: any): Observable<any> {
-    if (this.favoriteList) {
-      this.buildFavorite(this.favoriteList, data);
-    } else {
-      this.filmApiService.getFavoriteList()
-        .subscribe((favoritesList: any) => {
-          this.favoriteList = favoritesList;
-          this.buildFavorite(favoritesList, data);
-        });
-    }
+    this.filmApiService.getFavoriteList()
+      .subscribe((favoritesList: any) => {
+        this.buildFavorite(favoritesList, data);
+      });
     return data;
   }
 
@@ -81,34 +71,10 @@ export class FilmService {
     });
   }
 
-  addToFavoriteLocalList(film: Film): void {
-    this.favoriteList.results.push(film);
-  }
-
-  removeFromFavoriteLocalList(film: Film): void {
-    if (!this.favoriteList) { return; }
-
-    this.favoriteList.results.forEach((filmItem, index) => {
-      if (film.id === filmItem.id) {
-        this.favoriteList.results.splice(index, 1);
-      }
-    });
-  }
-
   favoriteCheck(film: Film): Observable<any> {
     return (!film.isFavorite)
       ? this.filmApiService.addOrRemovefavorite(film.id, true)
-        .pipe(
-          tap(() => {
-            this.addToFavoriteLocalList(film);
-          })
-        )
       : this.filmApiService.addOrRemovefavorite(film.id, false)
-        .pipe(
-          tap(() => {
-            this.removeFromFavoriteLocalList(film);
-          })
-        )
       ;
   }
 

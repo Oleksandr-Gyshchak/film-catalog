@@ -6,7 +6,7 @@
     <mat-card-subtitle>{{film.release_date}}</mat-card-subtitle>
   </mat-card-header>
   <a routerLink="['/movie', film.id]">
-    <img mat-card-image class="film-image" [src]="getImgUrl(film.poster_path)" alt="{{film.title}}">
+    <img mat-card-image class="film-image" [src]="film['poster_path'] | transformImgPath: 500" alt="{{film.title}}">
   </a>
   <mat-card-content>
     <p>

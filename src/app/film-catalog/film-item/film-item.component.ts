@@ -29,14 +29,9 @@ export class FilmItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  getImgUrl(url): string {
-    return this.filmsService.getFilmImgUrl(url);
-  }
-
   startFilm(film: Film): void {
     this.favorite.emit(film);
   }
-
 
   openFilmById(film: Film) {
     this.router.navigate(['/movie', film.id]);

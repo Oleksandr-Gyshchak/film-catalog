@@ -15,8 +15,4 @@ export class ActorItemComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getImgUrl(url): string {
-    return this.actorService.getFilmImgUrl(url);
-  }
 }
