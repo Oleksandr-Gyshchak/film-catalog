@@ -50,39 +50,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*    const isLogin = this.authService.isLoggedIn();
-        if (isLogin) {
-          this.router.navigate(['/main']);
-        }
-    */
+    const isLogin = this.authService.isLoggedIn();
+    if (isLogin) {
+      this.router.navigate(['/main']);
+    }
     this.buildLoginForm();
   }
-
-  /*
-  login() {
-    this.errorMessage = '';
-    const formValues = this.loginForm.value;
-    this.authService.login(formValues.userName, formValues.userPassword)
-      .subscribe(
-        () => {
-          this.msgService.setMessage({
-            type: 'success',
-            body: `${this.credentials.username}, Вы успешно вошли в систему. Добро пожаловать!`
-          });
-          setTimeout(() => {
-            this.router.navigate(['/main']);
-          }, 2000);
-        },
-        err => {
-          this.errorMessage = err.error.error;
-          this.msgService.setMessage({
-            type: 'danger',
-            body: err.error.error
-          });
-        }
-      );
-  }
-  */
 
   buildLoginForm() {
     this.loginForm = this.formBuilder.group({
@@ -125,14 +98,15 @@ export class LoginComponent implements OnInit {
   }
 
   makeClear() {
+    this.errorMessage = '';
     this.loginForm.reset();
   }
 
-  checkAutThemoviedb() {
+  credentialsCheck() {
     this.errorMessage = '';
     this.showSpinner = true;
-    const formValues = this.loginForm.value;
-    this.authService.loginThemoviedb(formValues.userName, formValues.userPassword)
+    const credentials = this.loginForm.value;
+    this.authService.loginCheck(credentials.userName, credentials.userPassword)
       .subscribe(
         (data: any) => {
           this.msgService.setMessage({
@@ -148,6 +122,7 @@ export class LoginComponent implements OnInit {
           console.log('error', err);
         }
       );
+
     this.showSpinner = false;
   }
 }

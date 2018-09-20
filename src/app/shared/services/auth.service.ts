@@ -23,7 +23,7 @@ export class AuthService {
   }
 
 
-  loginThemoviedb(login: string, password: string): Observable<any> {
+  loginCheck(login: string, password: string): Observable<any> {
     return this.http.get(`${this.configApi.apiUrl}/authentication/token/new` + '?api_key=' + this.configApi.apiKey).pipe(
       mergeMap(
         obj => this.linkTokenWithAccount(obj['request_token'], login, password)

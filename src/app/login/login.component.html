@@ -36,7 +36,7 @@
     <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="checkAutThemoviedb()" color="primary">Submit</button>
+    <button mat-raised-button [disabled]="!loginForm.valid" (click)="credentialsCheck()" color="primary">Submit</button>
     <button mat-raised-button (click)="makeClear()" color="accent">Clear</button>
   </mat-card-actions>
 </mat-card>
