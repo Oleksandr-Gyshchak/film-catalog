@@ -14,6 +14,7 @@ import { FilmDetailComponent } from './film-catalog/film-detail/film-detail.comp
 import { FavoritesListComponent } from './film-catalog/favorites-list/favorites-list.component';
 import { SearchMovieComponent } from './film-catalog/searchBlock/searchMovie/searchMovie.component';
 import { SearchActorComponent } from './film-catalog/searchBlock/searchActor/searchActor.component';
+import { ActorDetailComponent } from './film-catalog/actor-detail/actor-detail.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,11 @@ const routes: Routes = [
   {
     path: 'actors',
     component: ActorsListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'actor/:id',
+    component: ActorDetailComponent,
     canActivate: [AuthGuard]
   },
   {

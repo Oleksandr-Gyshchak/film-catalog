@@ -8,15 +8,15 @@
 
 
 <div *appSpinner="preload">
-  <ng-template #alertBlock class="errors-block">
-    <mat-error>
+  <ng-template #alertBlock>
+    <mat-error class="errors-block">
       <h3>
-        По вашему запросу {{query}} ничего не найдено
+        По вашему запросу "{{query}} " ничего не найдено
       </h3>
     </mat-error>
   </ng-template>
 
-  <div *ngIf="isEmptySearchResult(filmsList); else alertBlock">
+  <div *ngIf="!isEmptySearchResult(filmsList); else alertBlock">
     <mat-grid-list cols="4" rowHeight="740px">
       <mat-grid-tile colspan="1" *ngFor="let film of filmsList">
         <app-film-item [film]="film" (favorite)="addToFavorite($event)"></app-film-item>

@@ -48,7 +48,7 @@ export class SearchActorComponent implements OnInit {
 
 
   isEmptySearchResult(list): boolean {
-    return (list['results']) ? false : true;
+    return list.length ? false : true;
   }
 
   saveData(serverData): void {

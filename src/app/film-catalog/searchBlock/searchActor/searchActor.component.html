@@ -8,15 +8,15 @@
 
 
 <div *appSpinner="preload">
-  <ng-template #alertBlock class="errors-block">
-    <mat-error>
+  <ng-template #alertBlock>
+    <mat-error class="errors-block">
       <h3>
         По вашему запросу {{query}} ничего не найдено
       </h3>
     </mat-error>
   </ng-template>
 
-  <div *ngIf="isEmptySearchResult(actorsList); else alertBlock">
+  <div *ngIf="!isEmptySearchResult(actorsList); else alertBlock">
     <mat-grid-list cols="3" rowHeight="740px">
       <mat-grid-tile colspan="1" *ngFor="let actor of actorsList">
         <app-actor-item [actor]="actor"></app-actor-item>

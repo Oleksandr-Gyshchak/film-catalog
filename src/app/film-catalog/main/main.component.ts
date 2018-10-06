@@ -6,6 +6,8 @@ import { Actor } from '../../shared/models/actor';
 import { MessagesService } from '../../shared/services/messages.service';
 import { FilmService } from '../../shared/services/services/film.service';
 import { FavoriteServer } from '../../shared/models/favoriteServer';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-main',
@@ -34,8 +36,13 @@ export class MainComponent implements OnInit {
         this.actorsList = data[1].results.slice(0, 4);
         this.preload = false;
       },
-      err => {
+      (err: HttpErrorResponse) => {
         console.log('error', err);
+        this.messagesService.setMessage({
+          type: 'warning',
+          body: ` ${err.error.status_message}`,
+          action: 'warning'
+        });
       });
   }
 
@@ -48,8 +55,32 @@ export class MainComponent implements OnInit {
   }
 
   addToFavorite(film: Film): void {
-    this.filmsService.addOrRemoveFromFavorite(film);
+    this.filmsService.favoriteCheck(film).subscribe(
+      (data: FavoriteServer) => {
+        if (data.status_code === 1) {
+          this.messagesService.setMessage({
+            type: 'success',
+            body: ` Фильм ${film.title}, успешно добавлен в избранное`,
+            action: 'success'
+          });
+        } else if (data.status_code === 13) {
+          this.messagesService.setMessage({
+            type: 'warning',
+            body: ` Фильм ${film.title}, удален из избранного`,
+            action: 'warning'
+          });
+        }
+        film.isFavorite = !film.isFavorite;
+      },
+      (err: HttpErrorResponse) => {
+        console.log('error', err);
+        this.messagesService.setMessage({
+          type: 'warning',
+          body: ` ${err.error.status_message}`,
+          action: 'warning'
+        });
+      }
+    );
   }
-
 
 }

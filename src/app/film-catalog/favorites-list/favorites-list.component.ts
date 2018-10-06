@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 
 import { Film } from '../../shared/models/film';
 import { FilmApiService } from '../../shared/services/services/film.api.service';
+import { FavoriteServer } from '../../shared/models/favoriteServer';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-favorites-list',
@@ -59,7 +61,26 @@ export class FavoritesListComponent implements OnInit {
   }
 
   addToFavorite(film: Film): void {
-    this.filmsService.addOrRemoveFromFavorite(film);
+    this.filmsService.favoriteCheck(film).subscribe(
+      (data: FavoriteServer) => {
+        if (data.status_code === 13) {
+          this.messagesService.setMessage({
+            type: 'warning',
+            body: ` Фильм ${film.title}, удален из избранного`,
+            action: 'warning'
+          });
+          this.getFilmsFavoritesList();
+        }
+      },
+      (err: HttpErrorResponse) => {
+        console.log('error', err);
+        this.messagesService.setMessage({
+          type: 'warning',
+          body: ` ${err.error.status_message}`,
+          action: 'warning'
+        });
+      }
+    );
   }
 
   isFavoriteListEmpty(list: any) {

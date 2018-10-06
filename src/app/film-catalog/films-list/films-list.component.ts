@@ -4,6 +4,8 @@ import { Subscription, throwError } from 'rxjs';
 import { Film } from '../../shared/models/film';
 import { FilmService } from '../../shared/services/services/film.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FavoriteServer } from '../../shared/models/favoriteServer';
+import { MessagesService } from '../../shared/services/messages.service';
 
 
 @Component({
@@ -13,11 +15,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 
 export class FilmsListComponent implements OnInit {
+  // tslint:disable-next-line:no-inferrable-types
   preload: boolean = true;
   error: string;
 
   filmsList: Film;
+  // tslint:disable-next-line:no-inferrable-types
   page: number = 1;
+  // tslint:disable-next-line:no-inferrable-types
   lastPage: number = 1;
 
   filmSubscription: Subscription;
@@ -25,7 +30,8 @@ export class FilmsListComponent implements OnInit {
 
 
   constructor(
-    public filmsService: FilmService
+    public filmsService: FilmService,
+    private messagesService: MessagesService
   ) { }
 
   ngOnInit() {
@@ -56,7 +62,32 @@ export class FilmsListComponent implements OnInit {
   }
 
   addToFavorite(film: Film): void {
-    this.filmsService.addOrRemoveFromFavorite(film);
+    this.filmsService.favoriteCheck(film).subscribe(
+      (data: FavoriteServer) => {
+        if (data.status_code === 1) {
+          this.messagesService.setMessage({
+            type: 'success',
+            body: ` Фильм ${film.title}, успешно добавлен в избранное`,
+            action: 'success'
+          });
+        } else if (data.status_code === 13) {
+          this.messagesService.setMessage({
+            type: 'warning',
+            body: ` Фильм ${film.title}, удален из избранного`,
+            action: 'warning'
+          });
+        }
+        film.isFavorite = !film.isFavorite;
+      },
+      (err: HttpErrorResponse) => {
+        console.log('error', err);
+        this.messagesService.setMessage({
+          type: 'warning',
+          body: ` ${err.error.status_message}`,
+          action: 'warning'
+        });
+      }
+    );
   }
 
 }

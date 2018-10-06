@@ -14,6 +14,7 @@ import { FilmDetailComponent } from './film-detail/film-detail.component';
 import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 import { SearchMovieComponent } from './searchBlock/searchMovie/searchMovie.component';
 import { SearchActorComponent } from './searchBlock/searchActor/searchActor.component';
+import { ActorDetailComponent } from './actor-detail/actor-detail.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SearchActorComponent } from './searchBlock/searchActor/searchActor.comp
     FilmDetailComponent,
     SearchMovieComponent,
     FavoritesListComponent,
-    SearchActorComponent
+    SearchActorComponent,
+    ActorDetailComponent
   ],
   providers: [
     {

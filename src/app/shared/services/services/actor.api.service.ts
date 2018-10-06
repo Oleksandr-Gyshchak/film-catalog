@@ -22,4 +22,8 @@ export class ActorService {
     return this.http.get(`${this.configApi.searchUrl}/person?page=${page}${this.configApi.params}&query=${query}`);
   }
 
+  getActorById(id: number): Observable<any> {
+    return this.http.get(`${this.configApi.personUrl}/${id}?${this.configApi.params}&page=1&include_adult=false`);
+  }
+
 }

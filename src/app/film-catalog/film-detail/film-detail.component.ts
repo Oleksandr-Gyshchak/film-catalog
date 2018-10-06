@@ -3,6 +3,9 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Film } from '../../shared/models/film';
 import { FilmService } from '../../shared/services/services/film.service';
 import { FilmApiService } from '../../shared/services/services/film.api.service';
+import { FavoriteServer } from '../../shared/models/favoriteServer';
+import { MessagesService } from '../../shared/services/messages.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -21,7 +24,8 @@ export class FilmDetailComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     public filmsService: FilmService,
-    public service: FilmApiService
+    public service: FilmApiService,
+    private messagesService: MessagesService
   ) { }
 
   ngOnInit() {
@@ -46,7 +50,32 @@ export class FilmDetailComponent implements OnInit {
   }
 
   addToFavorite(film: Film): void {
-    this.filmsService.addOrRemoveFromFavorite(film);
+    this.filmsService.favoriteCheck(film).subscribe(
+      (data: FavoriteServer) => {
+        if (data.status_code === 1) {
+          this.messagesService.setMessage({
+            type: 'success',
+            body: ` Фильм ${film.title}, успешно добавлен в избранное`,
+            action: 'success'
+          });
+        } else if (data.status_code === 13) {
+          this.messagesService.setMessage({
+            type: 'warning',
+            body: ` Фильм ${film.title}, удален из избранного`,
+            action: 'warning'
+          });
+        }
+        film.isFavorite = !film.isFavorite;
+      },
+      (err: HttpErrorResponse) => {
+        console.log('error', err);
+        this.messagesService.setMessage({
+          type: 'warning',
+          body: ` ${err.error.status_message}`,
+          action: 'warning'
+        });
+      }
+    );
   }
 
 

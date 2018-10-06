@@ -3,8 +3,6 @@ import { Observable, throwError, Subject, ReplaySubject, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { FilmApiService } from './film.api.service';
 import { Film } from '../../models/film';
-import { FavoriteServer } from '../../models/favoriteServer';
-import { MessagesService } from '../messages.service';
 
 
 @Injectable({
@@ -13,8 +11,7 @@ import { MessagesService } from '../messages.service';
 
 export class FilmService {
   constructor(
-    private filmApiService: FilmApiService,
-    private messagesService: MessagesService
+    private filmApiService: FilmApiService
   ) {
   }
 
@@ -77,32 +74,5 @@ export class FilmService {
       : this.filmApiService.addOrRemovefavorite(film.id, false)
       ;
   }
-
-  addOrRemoveFromFavorite(film: Film): void {
-    this.favoriteCheck(film).subscribe(
-      (data: FavoriteServer) => {
-        if (data.status_code === 1) {
-          this.messagesService.setMessage({
-            type: 'success',
-            body: ` Фильм ${film.title}, успешно добавлен в избранное`,
-            action: 'success'
-          });
-        } else if (data.status_code === 13) {
-          this.messagesService.setMessage({
-            type: 'warning',
-            body: ` Фильм ${film.title}, удален из избранного`,
-            action: 'warning'
-          });
-        }
-        film.isFavorite = !film.isFavorite;
-      },
-      err => {
-        console.log('error', err);
-      }
-    );
-  }
-
-
-
 
 }
